@@ -9,11 +9,18 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 
 type SeedProduct = { es: string; en: string; price: number };
-type SeedCategory = { slug: string; es: string; en: string; products: SeedProduct[] };
+type SeedCategory = {
+  slug: string;
+  es: string;
+  en: string;
+  showImages?: boolean; // tarjetas grandes con foto
+  products: SeedProduct[];
+};
 
 const menu: SeedCategory[] = [
   {
     slug: "desayunos",
+    showImages: true,
     es: "Desayunos",
     en: "Breakfast",
     products: [
@@ -26,6 +33,7 @@ const menu: SeedCategory[] = [
   },
   {
     slug: "almuerzos",
+    showImages: true,
     es: "Almuerzos",
     en: "Lunch",
     products: [
@@ -36,6 +44,7 @@ const menu: SeedCategory[] = [
   },
   {
     slug: "especialidad",
+    showImages: true,
     es: "Especialidad de la casa",
     en: "House specialty",
     products: [
@@ -137,6 +146,7 @@ async function main() {
             data: {
               slug: cat.slug,
               sortOrder: catIndex,
+              showImages: cat.showImages ?? false,
               translations: {
                 create: [
                   { locale: "es", name: cat.es },

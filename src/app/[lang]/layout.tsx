@@ -1,10 +1,30 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Alfa_Slab_One, Caveat, Geist, Oswald } from "next/font/google";
 import { locales } from "@/i18n/config";
 import "../globals.css";
 
+// Texto general (listas de productos).
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+// Logo "RANCHO 27": letra gruesa con serifas rectas.
+const alfaSlab = Alfa_Slab_One({
+  variable: "--font-alfa-slab",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+// Títulos de categoría: mayúsculas altas y angostas.
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+});
+
+// Frases escritas a mano ("Buenos sabores, siempre.").
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -23,10 +43,11 @@ export function generateStaticParams() {
 // indique el idioma real de la página.
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
+  const fonts = [geistSans, alfaSlab, oswald, caveat].map((font) => font.variable).join(" ");
 
   return (
-    <html lang={lang} className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full bg-stone-950 text-stone-100">{children}</body>
+    <html lang={lang} className={`${fonts} h-full antialiased`}>
+      <body className="min-h-full text-cream">{children}</body>
     </html>
   );
 }

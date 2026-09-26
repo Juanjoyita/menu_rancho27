@@ -24,6 +24,8 @@ model Category {
   slug        String   @unique // identificador legible para URLs, ej. "carnes"
   sortOrder   Int      @default(0) // orden en el menú (menor = primero)
   isPublished Boolean  @default(true) // false = oculta en el menú público
+  showImages  Boolean  @default(false) // true = reserva espacio para la foto de la sección
+  imageUrl    String? // foto de la sección en Cloudinary (ej. un almuerzo servido)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

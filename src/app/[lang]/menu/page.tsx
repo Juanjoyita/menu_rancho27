@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DishImage } from "@/components/menu/DishImage";
+import { Emblem } from "@/components/menu/Emblem";
+import { ProductRow } from "@/components/menu/ProductRow";
+import { SectionHeader } from "@/components/menu/SectionHeader";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { formatPrice } from "@/lib/format";
 import { getPublicMenu } from "@/services/menu";
 
 // La página se genera de antemano y se regenera con los datos de la base de
@@ -26,39 +29,48 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
   const otherLang: Locale = lang === "es" ? "en" : "es";
 
   return (
-    <main className="mx-auto max-w-2xl pb-16">
-      <header className="flex items-start justify-between gap-4 px-4 pt-8 pb-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-400">
-            Rancho 27
-          </p>
-          <h1 className="mt-1 text-3xl font-bold">{dict.menu.title}</h1>
+    <main className="mx-auto max-w-2xl overflow-x-clip pb-16">
+      {/* Encabezado: emblema, nombre del restaurante y lema. */}
+      <header className="relative px-4 pt-6 pb-10 text-center">
+        <div className="flex justify-end">
+          <Link
+            href={`/${otherLang}/menu`}
+            hrefLang={otherLang}
+            lang={otherLang}
+            className="rounded-full border border-gold/40 px-3 py-1 font-heading text-xs uppercase tracking-wider text-cream/80 hover:border-gold hover:text-gold"
+          >
+            {dict.language.switchTo}
+          </Link>
         </div>
-        <Link
-          href={`/${otherLang}/menu`}
-          hrefLang={otherLang}
-          lang={otherLang}
-          className="rounded-full border border-stone-700 px-3 py-1.5 text-sm text-stone-300 hover:border-orange-400 hover:text-orange-300"
-        >
-          {dict.language.switchTo}
-        </Link>
+
+        <Emblem className="mx-auto mt-2 w-32 text-cream" />
+        <h1 className="mt-2 font-logo text-5xl leading-none text-cream drop-shadow-[0_2px_12px_rgba(232,163,61,0.25)]">
+          RANCHO 27
+          <span className="sr-only"> · {dict.menu.title}</span>
+        </h1>
+        <p className="mt-3 flex items-center justify-center gap-3 font-heading text-xs uppercase tracking-[0.3em] text-cream/80">
+          <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
+          {dict.brand.subtitle}
+          <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
+        </p>
+        <p className="mt-6 -rotate-3 font-script text-3xl text-gold">{dict.brand.slogan}</p>
       </header>
 
       {categories.length === 0 ? (
-        <p className="px-4 text-stone-400">{dict.menu.empty}</p>
+        <p className="px-4 text-center text-cream/60">{dict.menu.empty}</p>
       ) : (
         <>
           {/* Barra de categorías: queda fija arriba al hacer scroll. */}
           <nav
             aria-label={dict.menu.categories}
-            className="sticky top-0 z-10 border-y border-stone-800 bg-stone-950/95 backdrop-blur"
+            className="sticky top-0 z-20 border-y border-gold/20 bg-ink/90 backdrop-blur"
           >
             <ul className="flex gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none]">
               {categories.map((category) => (
                 <li key={category.id} className="shrink-0">
                   <a
                     href={`#${category.slug}`}
-                    className="block rounded-full bg-stone-800 px-3 py-1.5 text-sm text-stone-200 hover:bg-orange-500 hover:text-stone-950"
+                    className="block rounded-full border border-gold/40 px-4 py-1.5 font-heading text-xs uppercase tracking-wider text-cream/90 transition hover:bg-gold hover:text-ink"
                   >
                     {category.name}
                   </a>
@@ -67,50 +79,63 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
             </ul>
           </nav>
 
-          {categories.map((category) => (
-            <section
-              key={category.id}
-              id={category.slug}
-              aria-labelledby={`${category.slug}-title`}
-              className="scroll-mt-16 px-4 pt-8"
-            >
-              <h2 id={`${category.slug}-title`} className="text-xl font-bold text-orange-400">
-                {category.name}
-              </h2>
-              {category.description && (
-                <p className="mt-1 text-sm text-stone-400">{category.description}</p>
-              )}
+          {categories.map((category) => {
+            const titleId = `${category.slug}-title`;
+            const hasPhoto = Boolean(category.imageUrl) || category.showImages;
 
-              <ul className="mt-3 divide-y divide-stone-800">
-                {category.products.map((product) => (
-                  <li key={product.id} className="flex items-start justify-between gap-4 py-3">
-                    <div className={product.isAvailable ? undefined : "opacity-50"}>
-                      <h3 className="font-medium">{product.name}</h3>
-                      {product.description && (
-                        <p className="mt-0.5 text-sm text-stone-400">{product.description}</p>
-                      )}
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <p
-                        className={`font-semibold tabular-nums ${
-                          product.isAvailable ? "text-stone-100" : "text-stone-500 line-through"
-                        }`}
-                      >
-                        {formatPrice(product.price)}
-                      </p>
-                      {!product.isAvailable && (
-                        <p className="mt-1 rounded bg-stone-800 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-orange-300">
-                          {dict.menu.soldOut}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
+            return (
+              <section
+                key={category.id}
+                id={category.slug}
+                aria-labelledby={titleId}
+                className="scroll-mt-20 px-4 pt-12"
+              >
+                <SectionHeader id={titleId} slug={category.slug} title={category.name} />
 
-          <p className="mt-10 px-4 text-center text-xs text-stone-500">{dict.menu.pricesNote}</p>
+                {category.description && (
+                  <p className="mt-3 -rotate-2 pl-4 font-script text-2xl text-gold">
+                    {category.description}
+                  </p>
+                )}
+
+                {hasPhoto && (
+                  <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-2xl shadow-xl shadow-black/50 ring-1 ring-gold/20">
+                    <DishImage
+                      src={category.imageUrl}
+                      alt={category.name}
+                      sizes="(min-width: 672px) 640px, 100vw"
+                      placeholderText={dict.menu.photoSoon}
+                    />
+                    {/* Viñeta para integrar la foto con el fondo oscuro. */}
+                    <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.6)]" />
+                  </div>
+                )}
+
+                <ul className="mt-4">
+                  {category.products.map((product) => (
+                    <ProductRow key={product.id} product={product} soldOutLabel={dict.menu.soldOut} />
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
+
+          {/* Cierre, como el pie de la carta impresa. */}
+          <footer className="mt-16 px-4 text-center">
+            <div
+              aria-hidden="true"
+              className="mx-auto h-px max-w-xs bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+            />
+            <p className="mt-8 -rotate-3 font-script text-3xl text-gold">
+              {dict.brand.closing} <span aria-hidden="true">♥</span>
+            </p>
+            <p className="mt-3 font-script text-xl text-cream/70">{dict.brand.footerSlogan}</p>
+            <Emblem className="mx-auto mt-8 w-16 text-gold/70" />
+            <p className="mt-1 font-heading text-sm uppercase tracking-[0.3em] text-cream/70">
+              Rancho 27
+            </p>
+            <p className="mt-6 text-xs text-cream/40">{dict.menu.pricesNote}</p>
+          </footer>
         </>
       )}
     </main>

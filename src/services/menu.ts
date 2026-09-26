@@ -15,6 +15,8 @@ export type MenuCategory = {
   slug: string;
   name: string;
   description: string | null;
+  showImages: boolean; // reserva espacio para la foto de la sección
+  imageUrl: string | null; // foto de la sección
   products: MenuProduct[];
 };
 
@@ -67,6 +69,8 @@ export async function getPublicMenu(locale: Locale): Promise<MenuCategory[]> {
         slug: category.slug,
         name: translation?.name ?? category.slug,
         description: translation?.description ?? null,
+        showImages: category.showImages,
+        imageUrl: category.imageUrl,
         products,
       };
     })
