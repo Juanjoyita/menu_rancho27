@@ -109,8 +109,8 @@ const menu: SeedCategory[] = [
     slug: "porciones",
     es: "Porciones",
     en: "Portions",
-    descEs: "Las porciones de carne vienen con papa al vapor o papa frita, a elegir.",
-    descEn: "Meat portions come with steamed potato or French fries, your choice.",
+    descEs: "Las porciones vienen con papa al vapor o papa frita, a elegir.",
+    descEn: "Portions come with steamed potato or French fries, your choice.",
     products: [
       { es: "Carne al horno", en: "Oven-roasted beef", price: 27000 },
       { es: "Chuleta", en: "Breaded pork chop", price: 27000 },
