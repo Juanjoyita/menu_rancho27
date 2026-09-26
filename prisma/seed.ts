@@ -8,11 +8,20 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 
-type SeedProduct = { es: string; en: string; price: number; featured?: boolean };
+type SeedProduct = {
+  es: string;
+  en: string;
+  price: number;
+  featured?: boolean;
+  descEs?: string; // descripción (qué trae el plato)
+  descEn?: string;
+};
 type SeedCategory = {
   slug: string;
   es: string;
   en: string;
+  descEs?: string;
+  descEn?: string;
   products: SeedProduct[];
 };
 
@@ -21,10 +30,31 @@ const menu: SeedCategory[] = [
     slug: "desayunos",
     es: "Desayunos",
     en: "Breakfast",
+    descEs: "Todos incluyen una bebida pequeña a elegir: café, chocolate o agua de panela.",
+    descEn: "All include a small drink of your choice: coffee, hot chocolate or aguapanela.",
     products: [
-      { es: "Desayuno sencillo", en: "Simple breakfast", price: 8000 },
-      { es: "Desayuno ejecutivo", en: "Executive breakfast", price: 17000 },
-      { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast", price: 28000, featured: true },
+      {
+        es: "Desayuno sencillo",
+        en: "Simple breakfast",
+        price: 8000,
+        descEs: "Huevos al gusto (revueltos, pericos o fritos) con pan.",
+        descEn: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with bread.",
+      },
+      {
+        es: "Desayuno ejecutivo",
+        en: "Executive breakfast",
+        price: 17000,
+        descEs: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa.",
+        descEn: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and potato.",
+      },
+      {
+        es: "Desayuno Rancho 27",
+        en: "Rancho 27 breakfast",
+        price: 28000,
+        featured: true,
+        descEs: "Proteína a elegir (carne al horno, costilla ahumada, chuleta o filete de pollo) con huevos al gusto.",
+        descEn: "Choice of protein (oven-roasted beef, smoked ribs, pork chop or chicken fillet) with eggs your way.",
+      },
       { es: "Pan", en: "Bread", price: 1000 },
       { es: "Pan con queso", en: "Bread with cheese", price: 3500 },
     ],
@@ -34,9 +64,27 @@ const menu: SeedCategory[] = [
     es: "Almuerzos",
     en: "Lunch",
     products: [
-      { es: "Almuerzo ejecutivo", en: "Executive lunch", price: 27000 },
-      { es: "Almuerzo al horno", en: "Oven-baked lunch", price: 30000 },
-      { es: "Sopa del día", en: "Soup of the day", price: 7000 },
+      {
+        es: "Almuerzo ejecutivo",
+        en: "Executive lunch",
+        price: 27000,
+        descEs: "Chorizo con sopa, principio, arroz, ensalada y limonada.",
+        descEn: "Chorizo with soup, beans or legumes, rice, salad and lemonade.",
+      },
+      {
+        es: "Almuerzo al horno",
+        en: "Oven-baked lunch",
+        price: 30000,
+        descEs: "Proteína a elegir (carne al horno, chuleta, costilla ahumada, filete de pollo o gallina). Incluye sopa, principio, arroz, ensalada y limonada.",
+        descEn: "Choice of protein (oven-roasted beef, pork chop, smoked ribs, chicken fillet or hen). Includes soup, beans or legumes, rice, salad and lemonade.",
+      },
+      {
+        es: "Sopa del día",
+        en: "Soup of the day",
+        price: 7000,
+        descEs: "Sopa casera del día.",
+        descEn: "Homemade soup of the day.",
+      },
     ],
   },
   {
@@ -48,7 +96,13 @@ const menu: SeedCategory[] = [
       { es: "Arepa de choclo con queso campesino", en: "Sweet corn arepa with farmer's cheese", price: 6500, featured: true },
       { es: "Arepa de choclo con queso doble crema", en: "Sweet corn arepa with double-cream cheese", price: 8000 },
       { es: "Arepa de choclo con doble queso campesino", en: "Sweet corn arepa with double farmer's cheese", price: 8500 },
-      { es: "Arepa mixta", en: "Mixed arepa", price: 8000 },
+      {
+        es: "Arepa mixta",
+        en: "Mixed arepa",
+        price: 8000,
+        descEs: "Con queso campesino y doble crema.",
+        descEn: "With farmer's cheese and double-cream cheese.",
+      },
     ],
   },
   {
@@ -76,7 +130,13 @@ const menu: SeedCategory[] = [
       { es: "Ensalada", en: "Salad", price: 3000 },
       { es: "Papa al vapor", en: "Steamed potato", price: 3000 },
       { es: "Papa francesa", en: "French fries", price: 5000 },
-      { es: "Porción de huevos", en: "Eggs (side)", price: 1500 },
+      {
+        es: "Porción de huevos",
+        en: "Eggs (side)",
+        price: 1500,
+        descEs: "Al gusto: revueltos, pericos o fritos.",
+        descEn: "Your way: scrambled, pericos (with tomato and onion) or fried.",
+      },
       { es: "Principio", en: "Side of beans or legumes", price: 3000 },
       { es: "Queso", en: "Cheese", price: 3000 },
     ],
@@ -151,8 +211,8 @@ async function main() {
               sortOrder: catIndex,
               translations: {
                 create: [
-                  { locale: "es", name: cat.es },
-                  { locale: "en", name: cat.en },
+                  { locale: "es", name: cat.es, description: cat.descEs },
+                  { locale: "en", name: cat.en, description: cat.descEn },
                 ],
               },
             },
@@ -167,8 +227,8 @@ async function main() {
                 sortOrder: prodIndex,
                 translations: {
                   create: [
-                    { locale: "es", name: p.es },
-                    { locale: "en", name: p.en },
+                    { locale: "es", name: p.es, description: p.descEs },
+                    { locale: "en", name: p.en, description: p.descEn },
                   ],
                 },
               },

@@ -91,8 +91,9 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
               >
                 <SectionHeader id={titleId} slug={category.slug} title={category.name} />
 
+                {/* Nota que aplica a toda la categoría (ej. "Todos incluyen bebida…"). */}
                 {category.description && (
-                  <p className="mt-3 -rotate-2 pl-4 font-script text-2xl text-gold">
+                  <p className="mt-4 border-l-2 border-gold/60 pl-3 text-sm text-cream/75 italic">
                     {category.description}
                   </p>
                 )}

@@ -46,7 +46,7 @@ export function ProductRow({ product, soldOutLabel, recommendedLabel }: Props) {
           </span>
         </div>
         {product.description && (
-          <p className="mt-0.5 text-sm text-cream/50">{product.description}</p>
+          <p className="mt-0.5 text-[0.82rem] leading-snug text-cream/60">{product.description}</p>
         )}
         {(featured || soldOut) && (
           <div className="mt-1 flex flex-wrap gap-2">
