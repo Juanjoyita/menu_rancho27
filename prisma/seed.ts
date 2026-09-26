@@ -124,7 +124,6 @@ const menu: SeedCategory[] = [
     es: "Adicionales",
     en: "Sides & extras",
     products: [
-      { es: "Chorizo", en: "Chorizo sausage", price: 6500 },
       { es: "Chorizo con arepa blanca", en: "Chorizo with white arepa", price: 6500 },
       { es: "Chorizo con papa al vapor", en: "Chorizo with steamed potato", price: 8000 },
       { es: "Arepa blanca", en: "White corn arepa", price: 1000 },
@@ -159,7 +158,6 @@ const menu: SeedCategory[] = [
       { es: "Agua de panela pequeña en leche", en: "Small aguapanela with milk", price: 4000 },
       { es: "Agua de panela en leche", en: "Aguapanela with milk", price: 5000 },
       { es: "Aromática", en: "Herbal tea", price: 3000 },
-      { es: "Agua hervida (vaso)", en: "Glass of hot water", price: 1000 },
     ],
   },
   {
