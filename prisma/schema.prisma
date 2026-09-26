@@ -1,0 +1,108 @@
+// Esquema de la base de datos del menú digital Rancho 27.
+// Documentación: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Idiomas soportados por el menú público. El español es el idioma base.
+enum Locale {
+  es
+  en
+}
+
+// ─── Menú ────────────────────────────────────────────────────────────────────
+
+// Sección del menú (Entradas, Carnes, Bebidas…).
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique // identificador legible para URLs, ej. "carnes"
+  sortOrder   Int      @default(0) // orden en el menú (menor = primero)
+  isPublished Boolean  @default(true) // false = oculta en el menú público
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  translations CategoryTranslation[]
+  products     Product[]
+
+  @@index([sortOrder])
+}
+
+// Nombre y descripción de una categoría en un idioma.
+model CategoryTranslation {
+  id          String  @id @default(cuid())
+  categoryId  String
+  locale      Locale
+  name        String
+  description String?
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale]) // una sola traducción por idioma
+}
+
+// Plato o bebida.
+model Product {
+  id          String   @id @default(cuid())
+  categoryId  String
+  price       Int // precio en pesos colombianos (COP), sin decimales
+  imageUrl    String? // URL de la imagen en Cloudinary
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(true) // false = oculto en el menú público
+  isAvailable Boolean  @default(true) // false = se muestra como "Agotado"
+  externalId  String?  @unique // id del producto en el POS (sincronización futura)
+  sku         String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Restrict: no se puede borrar una categoría que todavía tiene productos.
+  category     Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  translations ProductTranslation[]
+
+  @@index([categoryId, sortOrder])
+}
+
+// Nombre y descripción de un producto en un idioma.
+model ProductTranslation {
+  id          String  @id @default(cuid())
+  productId   String
+  locale      Locale
+  name        String
+  description String?
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+}
+
+// ─── Panel de administración ────────────────────────────────────────────────
+
+// Persona que puede editar el menú.
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String // contraseña cifrada con bcrypt, nunca en texto plano
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions Session[]
+}
+
+// Sesión iniciada en el panel. La cookie guarda el token; aquí solo su hash.
+model Session {
+  id          String   @id @default(cuid())
+  tokenHash   String   @unique
+  adminUserId String
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  adminUser AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+
+  @@index([adminUserId])
+}
