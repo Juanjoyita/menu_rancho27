@@ -106,17 +106,19 @@ const menu: SeedCategory[] = [
     ],
   },
   {
-    slug: "carnes",
-    es: "Carnes",
-    en: "Meats",
-    descEs: "Vienen con papa al vapor o papa frita, a elegir.",
-    descEn: "Served with steamed potato or French fries, your choice.",
+    slug: "porciones",
+    es: "Porciones",
+    en: "Portions",
+    descEs: "Las porciones de carne vienen con papa al vapor o papa frita, a elegir.",
+    descEn: "Meat portions come with steamed potato or French fries, your choice.",
     products: [
       { es: "Carne al horno", en: "Oven-roasted beef", price: 27000 },
       { es: "Chuleta", en: "Breaded pork chop", price: 27000 },
       { es: "Costilla ahumada", en: "Smoked ribs", price: 27000, featured: true },
       { es: "Filete de pollo", en: "Chicken fillet", price: 27000 },
       { es: "Gallina", en: "Hen", price: 27000 },
+      { es: "Chorizo con arepa blanca", en: "Chorizo with white arepa", price: 6500 },
+      { es: "Chorizo con papa al vapor", en: "Chorizo with steamed potato", price: 8000 },
     ],
   },
   {
@@ -124,8 +126,6 @@ const menu: SeedCategory[] = [
     es: "Adicionales",
     en: "Sides & extras",
     products: [
-      { es: "Chorizo con arepa blanca", en: "Chorizo with white arepa", price: 6500 },
-      { es: "Chorizo con papa al vapor", en: "Chorizo with steamed potato", price: 8000 },
       { es: "Arepa blanca", en: "White corn arepa", price: 1000 },
       { es: "Arroz", en: "Rice", price: 4000 },
       { es: "Ensalada", en: "Salad", price: 3000 },
