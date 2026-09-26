@@ -68,8 +68,8 @@ const menu: SeedCategory[] = [
         es: "Almuerzo ejecutivo",
         en: "Executive lunch",
         price: 27000,
-        descEs: "Chorizo con sopa, principio, arroz, ensalada y limonada.",
-        descEn: "Chorizo with soup, beans or legumes, rice, salad and lemonade.",
+        descEs: "Proteína: chorizo. Incluye sopa, principio, arroz, ensalada y limonada.",
+        descEn: "Protein: chorizo. Includes soup, beans or legumes, rice, salad and lemonade.",
       },
       {
         es: "Almuerzo al horno",
