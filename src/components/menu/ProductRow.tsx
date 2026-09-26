@@ -5,15 +5,22 @@ import { DishImage } from "./DishImage";
 type Props = {
   product: MenuProduct;
   soldOutLabel: string;
+  recommendedLabel: string;
 };
 
 // Fila estilo carta de restaurante: nombre ........ $precio.
 // Si el producto tiene foto, muestra una miniatura a la izquierda.
-export function ProductRow({ product, soldOutLabel }: Props) {
+// Los recomendados se resaltan con un recuadro dorado y una estrella.
+export function ProductRow({ product, soldOutLabel, recommendedLabel }: Props) {
   const soldOut = !product.isAvailable;
+  const featured = product.isFeatured;
 
   return (
-    <li className="flex items-center gap-3 py-2">
+    <li
+      className={`flex items-center gap-3 py-2 ${
+        featured ? "-mx-3 my-1 rounded-xl bg-gold/[0.07] px-3 ring-1 ring-gold/30" : ""
+      }`}
+    >
       {product.imageUrl && (
         <div className="relative size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-gold/30">
           <DishImage src={product.imageUrl} alt={product.name} sizes="56px" soldOut={soldOut} />
@@ -22,7 +29,11 @@ export function ProductRow({ product, soldOutLabel }: Props) {
 
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <h3 className={`text-[0.95rem] ${soldOut ? "text-cream/40" : "text-cream/90"}`}>
+          <h3
+            className={`text-[0.95rem] ${
+              soldOut ? "text-cream/40" : featured ? "font-semibold text-cream" : "text-cream/90"
+            }`}
+          >
             {product.name}
           </h3>
           <span aria-hidden="true" className="min-w-4 flex-1 border-b-2 border-dotted border-gold/25" />
@@ -37,10 +48,22 @@ export function ProductRow({ product, soldOutLabel }: Props) {
         {product.description && (
           <p className="mt-0.5 text-sm text-cream/50">{product.description}</p>
         )}
-        {soldOut && (
-          <span className="mt-1 inline-block rounded-full border border-gold/40 px-2 py-0.5 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
-            {soldOutLabel}
-          </span>
+        {(featured || soldOut) && (
+          <div className="mt-1 flex flex-wrap gap-2">
+            {featured && (
+              <span className="inline-flex items-center gap-1 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-3.5">
+                  <path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5-4.9-4.5 6.6-.8z" />
+                </svg>
+                {recommendedLabel}
+              </span>
+            )}
+            {soldOut && (
+              <span className="inline-block rounded-full border border-gold/40 px-2 py-0.5 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
+                {soldOutLabel}
+              </span>
+            )}
+          </div>
         )}
       </div>
     </li>

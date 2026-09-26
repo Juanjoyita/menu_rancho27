@@ -8,32 +8,29 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
 
-type SeedProduct = { es: string; en: string; price: number };
+type SeedProduct = { es: string; en: string; price: number; featured?: boolean };
 type SeedCategory = {
   slug: string;
   es: string;
   en: string;
-  showImages?: boolean; // tarjetas grandes con foto
   products: SeedProduct[];
 };
 
 const menu: SeedCategory[] = [
   {
     slug: "desayunos",
-    showImages: true,
     es: "Desayunos",
     en: "Breakfast",
     products: [
       { es: "Desayuno sencillo", en: "Simple breakfast", price: 8000 },
       { es: "Desayuno ejecutivo", en: "Executive breakfast", price: 17000 },
-      { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast", price: 28000 },
+      { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast", price: 28000, featured: true },
       { es: "Pan", en: "Bread", price: 1000 },
       { es: "Pan con queso", en: "Bread with cheese", price: 3500 },
     ],
   },
   {
     slug: "almuerzos",
-    showImages: true,
     es: "Almuerzos",
     en: "Lunch",
     products: [
@@ -44,27 +41,33 @@ const menu: SeedCategory[] = [
   },
   {
     slug: "especialidad",
-    showImages: true,
     es: "Especialidad de la casa",
     en: "House specialty",
     products: [
       { es: "Arepa de choclo sin queso", en: "Sweet corn arepa (no cheese)", price: 5000 },
-      { es: "Arepa de choclo con queso campesino", en: "Sweet corn arepa with farmer's cheese", price: 6500 },
+      { es: "Arepa de choclo con queso campesino", en: "Sweet corn arepa with farmer's cheese", price: 6500, featured: true },
       { es: "Arepa de choclo con queso doble crema", en: "Sweet corn arepa with double-cream cheese", price: 8000 },
       { es: "Arepa de choclo con doble queso campesino", en: "Sweet corn arepa with double farmer's cheese", price: 8500 },
       { es: "Arepa mixta", en: "Mixed arepa", price: 8000 },
     ],
   },
   {
-    slug: "porciones",
-    es: "Porciones",
-    en: "Portions & sides",
+    slug: "carnes",
+    es: "Carnes",
+    en: "Meats",
     products: [
       { es: "Carne al horno", en: "Oven-roasted beef", price: 27000 },
       { es: "Chuleta", en: "Breaded pork chop", price: 27000 },
-      { es: "Costilla ahumada", en: "Smoked ribs", price: 27000 },
+      { es: "Costilla ahumada", en: "Smoked ribs", price: 27000, featured: true },
       { es: "Filete de pollo", en: "Chicken fillet", price: 27000 },
       { es: "Gallina", en: "Hen", price: 27000 },
+    ],
+  },
+  {
+    slug: "adicionales",
+    es: "Adicionales",
+    en: "Sides & extras",
+    products: [
       { es: "Chorizo", en: "Chorizo sausage", price: 6500 },
       { es: "Chorizo con arepa blanca", en: "Chorizo with white arepa", price: 6500 },
       { es: "Chorizo con papa al vapor", en: "Chorizo with steamed potato", price: 8000 },
@@ -146,7 +149,6 @@ async function main() {
             data: {
               slug: cat.slug,
               sortOrder: catIndex,
-              showImages: cat.showImages ?? false,
               translations: {
                 create: [
                   { locale: "es", name: cat.es },
@@ -161,6 +163,7 @@ async function main() {
               data: {
                 categoryId: category.id,
                 price: p.price,
+                isFeatured: p.featured ?? false,
                 sortOrder: prodIndex,
                 translations: {
                   create: [

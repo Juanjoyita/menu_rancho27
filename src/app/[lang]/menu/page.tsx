@@ -81,7 +81,6 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
 
           {categories.map((category) => {
             const titleId = `${category.slug}-title`;
-            const hasPhoto = Boolean(category.imageUrl) || category.showImages;
 
             return (
               <section
@@ -98,13 +97,12 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                   </p>
                 )}
 
-                {hasPhoto && (
+                {category.imageUrl && (
                   <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-2xl shadow-xl shadow-black/50 ring-1 ring-gold/20">
                     <DishImage
                       src={category.imageUrl}
                       alt={category.name}
                       sizes="(min-width: 672px) 640px, 100vw"
-                      placeholderText={dict.menu.photoSoon}
                     />
                     {/* Viñeta para integrar la foto con el fondo oscuro. */}
                     <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.6)]" />
@@ -113,7 +111,12 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
 
                 <ul className="mt-4">
                   {category.products.map((product) => (
-                    <ProductRow key={product.id} product={product} soldOutLabel={dict.menu.soldOut} />
+                    <ProductRow
+                      key={product.id}
+                      product={product}
+                      soldOutLabel={dict.menu.soldOut}
+                      recommendedLabel={dict.menu.recommended}
+                    />
                   ))}
                 </ul>
               </section>

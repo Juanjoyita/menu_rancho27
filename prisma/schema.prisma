@@ -24,7 +24,6 @@ model Category {
   slug        String   @unique // identificador legible para URLs, ej. "carnes"
   sortOrder   Int      @default(0) // orden en el menú (menor = primero)
   isPublished Boolean  @default(true) // false = oculta en el menú público
-  showImages  Boolean  @default(false) // true = reserva espacio para la foto de la sección
   imageUrl    String? // foto de la sección en Cloudinary (ej. un almuerzo servido)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -57,6 +56,7 @@ model Product {
   sortOrder   Int      @default(0)
   isPublished Boolean  @default(true) // false = oculto en el menú público
   isAvailable Boolean  @default(true) // false = se muestra como "Agotado"
+  isFeatured  Boolean  @default(false) // true = etiqueta "Recomendado" en el menú
   externalId  String?  @unique // id del producto en el POS (sincronización futura)
   sku         String?  @unique
   createdAt   DateTime @default(now())
