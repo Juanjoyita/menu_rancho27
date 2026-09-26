@@ -109,6 +109,8 @@ const menu: SeedCategory[] = [
     slug: "carnes",
     es: "Carnes",
     en: "Meats",
+    descEs: "Vienen con papa al vapor o papa frita, a elegir.",
+    descEn: "Served with steamed potato or French fries, your choice.",
     products: [
       { es: "Carne al horno", en: "Oven-roasted beef", price: 27000 },
       { es: "Chuleta", en: "Breaded pork chop", price: 27000 },
