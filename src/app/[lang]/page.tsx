@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FireBackground } from "@/components/landing/FireBackground";
 import { FacebookIcon, InstagramIcon, TikTokIcon, WhatsAppIcon } from "@/components/landing/icons";
-import { site, whatsappUrl } from "@/config/site";
+import { formatPhone, site, whatsappUrl } from "@/config/site";
 import { isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -32,7 +32,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
       {/* Selector de idioma ES | EN */}
       <nav aria-label={dict.language.label} className="flex justify-end px-4 pt-4">
-        <ul className="flex items-center rounded-full border border-gold/40 bg-ink/40 font-heading text-xs tracking-wider backdrop-blur">
+        <ul className="flex items-center rounded-full border border-gold/40 bg-ink/70 font-heading text-xs tracking-wider">
           {locales.map((locale, index) => (
             <li key={locale} className="flex items-center">
               {index > 0 && <span aria-hidden="true" className="h-3 w-px bg-gold/40" />}
@@ -84,15 +84,46 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           <span aria-hidden="true">→</span>
         </Link>
 
-        <a
-          href={whatsappUrl(lang)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-[#25d366]/60 bg-ink/50 px-6 py-3 font-heading text-sm uppercase tracking-[0.15em] text-cream backdrop-blur transition hover:border-[#25d366] hover:bg-[#25d366]/15"
-        >
-          <WhatsAppIcon className="size-5 text-[#25d366]" />
-          {dict.landing.reserve}
-        </a>
+        {/* Reserva por WhatsApp: al tocar se despliegan los números (<details>, sin JavaScript). */}
+        <details className="group mt-4 w-full overflow-hidden rounded-[1.75rem] border border-[#25d366]/60 bg-ink/70 transition open:border-[#25d366]">
+          <summary className="flex cursor-pointer list-none items-center justify-center gap-2 px-6 py-3 font-heading text-sm uppercase tracking-[0.15em] text-cream transition hover:bg-[#25d366]/15 [&::-webkit-details-marker]:hidden">
+            <WhatsAppIcon className="size-5 text-[#25d366]" />
+            {dict.landing.reserve}
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="size-4 text-cream/70 transition-transform group-open:rotate-180"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </summary>
+          <ul className="divide-y divide-[#25d366]/20 border-t border-[#25d366]/30">
+            {site.whatsapp.numbers.map((number) => (
+              <li key={number}>
+                <a
+                  href={whatsappUrl(number, lang)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${dict.landing.writeTo} ${formatPhone(number)}`}
+                  className="flex items-center justify-between px-6 py-3 text-cream transition hover:bg-[#25d366]/15"
+                >
+                  <span className="flex items-center gap-2 font-heading tracking-[0.12em]">
+                    <WhatsAppIcon className="size-4 text-[#25d366]" />
+                    {formatPhone(number)}
+                  </span>
+                  <span aria-hidden="true" className="text-[#25d366]">
+                    →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
 
         {/* Redes sociales */}
         <p className="mt-10 font-script text-xl text-cream/70">{dict.landing.followUs}</p>
@@ -104,7 +135,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={name}
-                className="flex size-12 items-center justify-center rounded-full border border-gold/40 bg-ink/50 text-cream/85 backdrop-blur transition hover:border-gold hover:text-gold"
+                className="flex size-12 items-center justify-center rounded-full border border-gold/40 bg-ink/70 text-cream/85 transition hover:border-gold hover:text-gold"
               >
                 <Icon className="size-5" />
               </a>

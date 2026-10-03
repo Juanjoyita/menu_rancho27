@@ -23,6 +23,7 @@ const es = {
   landing: {
     seeMenu: "Ver menú",
     reserve: "Reserva ya",
+    writeTo: "Escribir por WhatsApp al",
     followUs: "Síguenos",
   },
   language: {
@@ -54,6 +55,7 @@ const en: Dictionary = {
   landing: {
     seeMenu: "See menu",
     reserve: "Book now",
+    writeTo: "Message on WhatsApp",
     followUs: "Follow us",
   },
   language: {

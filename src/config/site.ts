@@ -11,16 +11,15 @@ export const site = {
     en: "Colombian home cooking: breakfast, lunch, sweet corn arepas and oven-roasted meats, with the flavor of our land.",
   } satisfies LocalizedText,
 
-  // TODO: reemplazar por los perfiles reales de Rancho 27.
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
-    tiktok: "https://www.tiktok.com/",
+    facebook: "https://www.facebook.com/rancho.veintisiete",
+    instagram: "https://www.instagram.com/rancho_veintisiete/",
+    tiktok: "https://www.tiktok.com/@rancho.veintisiet", // así, sin la "e" final (verificado)
   },
 
   whatsapp: {
-    // TODO: número real. Formato internacional sin "+" ni espacios: 57 + celular (ej. 573001234567).
-    number: "570000000000",
+    // Números para reservas. Formato internacional sin "+" ni espacios: 57 + celular.
+    numbers: ["573225935689", "573234830770"],
     message: {
       es: "¡Hola Rancho 27! Quiero hacer una reserva.",
       en: "Hi Rancho 27! I'd like to make a reservation.",
@@ -28,8 +27,14 @@ export const site = {
   },
 };
 
-// Enlace de WhatsApp que abre el chat con el mensaje ya escrito.
-export function whatsappUrl(locale: Locale) {
+// Enlace de WhatsApp que abre el chat con ese número y el mensaje ya escrito.
+export function whatsappUrl(number: string, locale: Locale) {
   const message = site.whatsapp.message[locale] ?? site.whatsapp.message.es;
-  return `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+// Número para mostrar: "573225935689" → "322 593 5689".
+export function formatPhone(number: string) {
+  const local = number.replace(/^57/, "");
+  return `${local.slice(0, 3)} ${local.slice(3, 6)} ${local.slice(6)}`;
 }
