@@ -91,7 +91,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-[#25d366]/60 bg-ink/50 px-6 py-3 font-heading text-sm uppercase tracking-[0.15em] text-cream backdrop-blur transition hover:border-[#25d366] hover:bg-[#25d366]/15"
         >
           <WhatsAppIcon className="size-5 text-[#25d366]" />
-          {dict.landing.order}
+          {dict.landing.reserve}
         </a>
 
         {/* Redes sociales */}

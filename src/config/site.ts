@@ -22,8 +22,8 @@ export const site = {
     // TODO: número real. Formato internacional sin "+" ni espacios: 57 + celular (ej. 573001234567).
     number: "570000000000",
     message: {
-      es: "¡Hola Rancho 27! Quiero hacer un pedido a domicilio.",
-      en: "Hi Rancho 27! I'd like to place a delivery order.",
+      es: "¡Hola Rancho 27! Quiero hacer una reserva.",
+      en: "Hi Rancho 27! I'd like to make a reservation.",
     } satisfies LocalizedText,
   },
 };

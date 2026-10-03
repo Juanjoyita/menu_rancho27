@@ -2,8 +2,28 @@
 // El orden de las categorías y de los platos aquí es el orden en el menú.
 // Exportado desde Neon el 2026-10-03.
 
+import type { StaticImageData } from "next/image";
+
+// Fotos de los platos (carpeta src/assets/platos). Importarlas así permite que
+// Next.js las optimice y genere un borrador difuminado que se ve al instante.
+import almuerzoChorizo from "@/assets/platos/almuerzo-chorizo.webp";
+import almuerzoCarneAlHorno from "@/assets/platos/almuerzo-carne-al-horno.webp";
+import almuerzoChuleta from "@/assets/platos/almuerzo-chuleta.webp";
+import almuerzoPollo from "@/assets/platos/almuerzo-pollo.webp";
+import almuerzoGallina from "@/assets/platos/almuerzo-gallina.webp";
+import arepaQuesoCampesino from "@/assets/platos/arepa-queso-campesino.webp";
+import arepaQuesoDobleCrema from "@/assets/platos/arepa-queso-doble-crema.webp";
+
 // Texto en español (obligatorio) e inglés (si falta, se muestra el español).
 export type LocalizedText = { es: string; en?: string };
+
+// Tarjeta con foto de un carrusel: una proteína de un plato o una foto de la sección.
+// Sin "image" se muestra el ícono de la categoría hasta tener la foto.
+export type MenuCard = {
+  name: LocalizedText;
+  side?: LocalizedText; // nota corta (ej. "Con papa frita")
+  image?: StaticImageData;
+};
 
 export type MenuItem = {
   name: LocalizedText;
@@ -11,14 +31,16 @@ export type MenuItem = {
   price: number; // pesos colombianos (COP), sin decimales
   featured?: boolean; // true = etiqueta "Recomendado"
   available?: boolean; // false = se muestra como "Agotado"
-  image?: string; // URL de la foto del plato
+  image?: StaticImageData; // foto del plato (miniatura en su fila)
+  proteins?: MenuCard[]; // proteínas a elegir, en carrusel debajo del plato
 };
 
 export type MenuSection = {
   slug: string; // identificador único de la sección, ej. "desayunos"
   name: LocalizedText;
   description?: LocalizedText;
-  image?: string; // foto de la sección
+  image?: StaticImageData; // foto grande de la sección
+  gallery?: MenuCard[]; // carrusel de fotos arriba de la lista de la sección
   items: MenuItem[];
 };
 
@@ -60,13 +82,44 @@ export const menu: MenuSection[] = [
     items: [
       {
         name: { es: "Almuerzo ejecutivo", en: "Executive lunch" },
-        description: { es: "Proteína: chorizo. Incluye sopa, principio, arroz, ensalada y limonada.", en: "Protein: chorizo. Includes soup, beans or legumes, rice, salad and lemonade." },
+        description: { es: "Proteína: chorizo. Incluye sopa, principio, arroz, papa al vapor, ensalada y limonada.", en: "Protein: chorizo. Includes soup, beans or legumes, rice, steamed potato, salad and lemonade." },
         price: 27000,
+        proteins: [
+          {
+            name: { es: "Chorizo", en: "Chorizo" },
+            side: { es: "Con papa al vapor", en: "With steamed potato" },
+            image: almuerzoChorizo,
+          },
+        ],
       },
       {
         name: { es: "Almuerzo al horno", en: "Oven-baked lunch" },
-        description: { es: "Proteína a elegir (carne al horno, chuleta, costilla ahumada, filete de pollo o gallina). Incluye sopa, principio, arroz, ensalada y limonada.", en: "Choice of protein (oven-roasted beef, pork chop, smoked ribs, chicken fillet or hen). Includes soup, beans or legumes, rice, salad and lemonade." },
+        description: { es: "Proteína a elegir (carne al horno, chuleta, costilla ahumada, filete de pollo o gallina). Incluye sopa, principio, arroz, papa (al vapor o frita, según la proteína), ensalada y limonada.", en: "Choice of protein (oven-roasted beef, pork chop, smoked ribs, chicken fillet or hen). Includes soup, beans or legumes, rice, potato (steamed or fried, depending on the protein), salad and lemonade." },
         price: 30000,
+        proteins: [
+          {
+            name: { es: "Carne al horno", en: "Oven-roasted beef" },
+            side: { es: "Con papa al vapor", en: "With steamed potato" },
+            image: almuerzoCarneAlHorno,
+          },
+          {
+            name: { es: "Chuleta", en: "Breaded pork chop" },
+            side: { es: "Con papa frita", en: "With French fries" },
+            image: almuerzoChuleta,
+          },
+          {
+            name: { es: "Filete de pollo", en: "Chicken fillet" },
+            side: { es: "Con papa frita", en: "With French fries" },
+            image: almuerzoPollo,
+          },
+          // TODO: foto y tipo de papa de la costilla ahumada.
+          { name: { es: "Costilla ahumada", en: "Smoked ribs" } },
+          {
+            name: { es: "Gallina", en: "Hen" },
+            side: { es: "Con papa al vapor", en: "With steamed potato" },
+            image: almuerzoGallina,
+          },
+        ],
       },
       {
         name: { es: "Sopa del día", en: "Soup of the day" },
@@ -78,6 +131,18 @@ export const menu: MenuSection[] = [
   {
     slug: "especialidad",
     name: { es: "Especialidad de la casa", en: "House specialty" },
+    gallery: [
+      {
+        name: { es: "Arepa con queso campesino", en: "Arepa with farmer's cheese" },
+        image: arepaQuesoCampesino,
+      },
+      {
+        name: { es: "Arepa con queso doble crema", en: "Arepa with double-cream cheese" },
+        image: arepaQuesoDobleCrema,
+      },
+      // TODO: foto de la arepa mixta.
+      { name: { es: "Arepa mixta", en: "Mixed arepa" } },
+    ],
     items: [
       {
         name: { es: "Arepa de choclo sin queso", en: "Sweet corn arepa (no cheese)" },

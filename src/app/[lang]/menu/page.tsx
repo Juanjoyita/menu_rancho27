@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { DishImage } from "@/components/menu/DishImage";
 import { Emblem } from "@/components/menu/Emblem";
 import { ProductRow } from "@/components/menu/ProductRow";
+import { PhotoCarousel } from "@/components/menu/PhotoCarousel";
 import { SectionHeader } from "@/components/menu/SectionHeader";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -94,10 +95,20 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                   </p>
                 )}
 
-                {category.imageUrl && (
+                {/* Galería de fotos de la sección (ej. las arepas). */}
+                <PhotoCarousel
+                  slug={category.slug}
+                  cards={category.gallery}
+                  label={category.name}
+                  swipeHint={dict.menu.swipeHint}
+                  soldOutLabel={dict.menu.soldOut}
+                  className="mt-5"
+                />
+
+                {category.image && (
                   <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-2xl shadow-xl shadow-black/50 ring-1 ring-gold/20">
                     <DishImage
-                      src={category.imageUrl}
+                      src={category.image}
                       alt={category.name}
                       sizes="(min-width: 672px) 640px, 100vw"
                     />
@@ -113,7 +124,19 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                       product={product}
                       soldOutLabel={dict.menu.soldOut}
                       recommendedLabel={dict.menu.recommended}
-                    />
+                    >
+                      {/* Fotos de las proteínas, justo debajo de su plato. */}
+                      <PhotoCarousel
+                        slug={category.slug}
+                        cards={product.proteins}
+                        label={`${product.name}: ${dict.menu.chooseProtein}`}
+                        title={product.proteins.length > 1 ? dict.menu.chooseProtein : undefined}
+                        swipeHint={dict.menu.swipeHint}
+                        soldOut={!product.isAvailable}
+                        soldOutLabel={dict.menu.soldOut}
+                        className="mt-3 mb-2"
+                      />
+                    </ProductRow>
                   ))}
                 </ul>
               </section>

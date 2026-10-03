@@ -14,13 +14,15 @@ const es = {
     description: "Menú de Rancho 27: desayunos, almuerzos, arepas de choclo, carnes y bebidas.",
     categories: "Categorías",
     soldOut: "Agotado",
+    chooseProtein: "Elige tu proteína",
+    swipeHint: "Desliza",
     recommended: "Recomendado",
     empty: "El menú no está disponible en este momento.",
     pricesNote: "Precios en pesos colombianos (COP).",
   },
   landing: {
     seeMenu: "Ver menú",
-    order: "Pide a domicilio",
+    reserve: "Reserva ya",
     followUs: "Síguenos",
   },
   language: {
@@ -43,13 +45,15 @@ const en: Dictionary = {
     description: "Rancho 27 menu: breakfast, lunch, sweet corn arepas, meats and drinks.",
     categories: "Categories",
     soldOut: "Sold out",
+    chooseProtein: "Choose your protein",
+    swipeHint: "Swipe",
     recommended: "Recommended",
     empty: "The menu is not available right now.",
     pricesNote: "Prices in Colombian pesos (COP).",
   },
   landing: {
     seeMenu: "See menu",
-    order: "Order delivery",
+    reserve: "Book now",
     followUs: "Follow us",
   },
   language: {
