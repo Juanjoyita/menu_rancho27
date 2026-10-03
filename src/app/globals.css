@@ -30,10 +30,20 @@ html {
    como una pizarra o papel envejecido. */
 body {
   background-color: var(--color-ink);
-  background-image:
-    radial-gradient(ellipse 120% 50% at 50% 0%, rgba(154, 52, 18, 0.35), transparent 70%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, repeat;
+  background-image: radial-gradient(ellipse 120% 50% at 50% 0%, rgba(154, 52, 18, 0.35), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+/* El grano va en una capa fija aparte: el navegador la pinta una sola vez
+   y no tiene que volver a generarla mientras el cliente hace scroll. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+  will-change: transform; /* capa propia en la tarjeta gráfica */
 }
 
 /* Entrada suave del contenido de la página de bienvenida. */

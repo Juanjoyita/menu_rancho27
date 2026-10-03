@@ -57,10 +57,11 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
         <p className="px-4 text-center text-cream/60">{dict.menu.empty}</p>
       ) : (
         <>
-          {/* Barra de categorías: queda fija arriba al hacer scroll. */}
+          {/* Barra de categorías: queda fija arriba al hacer scroll.
+              Fondo opaco sin desenfoque (backdrop-blur hacía lento el scroll en celulares). */}
           <nav
             aria-label={dict.menu.categories}
-            className="sticky top-0 z-20 border-y border-gold/20 bg-ink/90 backdrop-blur"
+            className="sticky top-0 z-20 border-y border-gold/20 bg-ink"
           >
             <ul className="flex gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none]">
               {categories.map((category) => (
