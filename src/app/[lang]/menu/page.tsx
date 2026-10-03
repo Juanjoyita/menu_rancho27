@@ -9,10 +9,6 @@ import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getPublicMenu } from "@/services/menu";
 
-// La página se genera de antemano y se regenera con los datos de la base de
-// datos como máximo cada 5 minutos (ISR).
-export const revalidate = 300;
-
 export async function generateMetadata({ params }: PageProps<"/[lang]/menu">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
