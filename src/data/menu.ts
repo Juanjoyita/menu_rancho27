@@ -140,8 +140,6 @@ export const menu: MenuSection[] = [
         name: { es: "Arepa con queso doble crema", en: "Arepa with double-cream cheese" },
         image: arepaQuesoDobleCrema,
       },
-      // TODO: foto de la arepa mixta.
-      { name: { es: "Arepa mixta", en: "Mixed arepa" } },
     ],
     items: [
       {
