@@ -46,7 +46,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const fonts = [geistSans, alfaSlab, oswald, caveat].map((font) => font.variable).join(" ");
 
   return (
-    <html lang={lang} className={`${fonts} h-full antialiased`}>
+    // data-scroll-behavior: Next quita el desplazamiento suave al cambiar de página
+    // (ej. landing → menú) y lo mantiene al tocar una categoría dentro del menú.
+    <html lang={lang} data-scroll-behavior="smooth" className={`${fonts} h-full antialiased`}>
       <body className="min-h-full text-cream">{children}</body>
     </html>
   );

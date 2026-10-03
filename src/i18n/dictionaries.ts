@@ -1,7 +1,7 @@
 import type { Locale } from "./config";
 
 // Textos fijos de la interfaz. Los nombres de platos y categorías
-// vienen traducidos desde la base de datos, no de aquí.
+// están en src/data/menu.ts y los datos del negocio en src/config/site.ts.
 const es = {
   brand: {
     subtitle: "Comida casera colombiana",
@@ -18,8 +18,14 @@ const es = {
     empty: "El menú no está disponible en este momento.",
     pricesNote: "Precios en pesos colombianos (COP).",
   },
+  landing: {
+    seeMenu: "Ver menú",
+    order: "Pide a domicilio",
+    followUs: "Síguenos",
+  },
   language: {
     switchTo: "English",
+    label: "Idioma",
   },
 };
 
@@ -41,8 +47,14 @@ const en: Dictionary = {
     empty: "The menu is not available right now.",
     pricesNote: "Prices in Colombian pesos (COP).",
   },
+  landing: {
+    seeMenu: "See menu",
+    order: "Order delivery",
+    followUs: "Follow us",
+  },
   language: {
     switchTo: "Español",
+    label: "Language",
   },
 };
 
