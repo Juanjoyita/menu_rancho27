@@ -10,6 +10,7 @@ import almuerzoChorizo from "@/assets/platos/almuerzo-chorizo.webp";
 import almuerzoCarneAlHorno from "@/assets/platos/almuerzo-carne-al-horno.webp";
 import almuerzoChuleta from "@/assets/platos/almuerzo-chuleta.webp";
 import almuerzoPollo from "@/assets/platos/almuerzo-pollo.webp";
+import almuerzoCostilla from "@/assets/platos/almuerzo-costilla.webp";
 import almuerzoGallina from "@/assets/platos/almuerzo-gallina.webp";
 import arepaQuesoCampesino from "@/assets/platos/arepa-queso-campesino.webp";
 import arepaQuesoDobleCrema from "@/assets/platos/arepa-queso-doble-crema.webp";
@@ -112,8 +113,11 @@ export const menu: MenuSection[] = [
             side: { es: "Con papa frita", en: "With French fries" },
             image: almuerzoPollo,
           },
-          // TODO: foto y tipo de papa de la costilla ahumada.
-          { name: { es: "Costilla ahumada", en: "Smoked ribs" } },
+          {
+            name: { es: "Costilla ahumada", en: "Smoked ribs" },
+            side: { es: "Con papa al vapor", en: "With steamed potato" },
+            image: almuerzoCostilla,
+          },
           {
             name: { es: "Gallina", en: "Hen" },
             side: { es: "Con papa al vapor", en: "With steamed potato" },
