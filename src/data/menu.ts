@@ -6,7 +6,9 @@ import type { StaticImageData } from "next/image";
 
 // Fotos de los platos (carpeta src/assets/platos). Importarlas así permite que
 // Next.js las optimice y genere un borrador difuminado que se ve al instante.
-import desayunoEjecutivo from "@/assets/platos/desayuno-ejecutivo.webp";
+import desayunoEjecutivoRevueltos from "@/assets/platos/desayuno-ejecutivo-revueltos.webp";
+import desayunoEjecutivoPericos from "@/assets/platos/desayuno-ejecutivo-pericos.webp";
+import desayunoEjecutivoFritos from "@/assets/platos/desayuno-ejecutivo-fritos.webp";
 import desayunoCarne from "@/assets/platos/desayuno-carne.webp";
 import desayunoCostilla from "@/assets/platos/desayuno-costilla.webp";
 import desayunoChuleta from "@/assets/platos/desayuno-chuleta.webp";
@@ -39,7 +41,8 @@ export type MenuItem = {
   featured?: boolean; // true = etiqueta "Recomendado"
   available?: boolean; // false = se muestra como "Agotado"
   image?: StaticImageData; // foto del plato (miniatura en su fila)
-  proteins?: MenuCard[]; // proteínas a elegir, en carrusel debajo del plato
+  proteins?: MenuCard[]; // opciones con foto (proteínas, huevos…), en carrusel debajo del plato
+  choiceTitle?: LocalizedText; // título del carrusel; por defecto "Elige tu proteína"
 };
 
 export type MenuSection = {
@@ -64,13 +67,24 @@ export const menu: MenuSection[] = [
       },
       {
         name: { es: "Desayuno ejecutivo", en: "Executive breakfast" },
-        description: { es: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa o plátano maduro, a elegir.", en: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and your choice of potato or sweet plantain." },
+        description: { es: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa frita o plátano maduro, a elegir.", en: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and your choice of French fries or sweet plantain." },
         price: 17000,
+        choiceTitle: { es: "Huevos al gusto", en: "Eggs your way" },
         proteins: [
           {
-            name: { es: "Huevos con arroz", en: "Eggs with rice" },
-            side: { es: "Con papa o plátano maduro", en: "With potato or sweet plantain" },
-            image: desayunoEjecutivo,
+            name: { es: "Huevos revueltos", en: "Scrambled eggs" },
+            side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
+            image: desayunoEjecutivoRevueltos,
+          },
+          {
+            name: { es: "Huevos pericos", en: "Pericos eggs" },
+            side: { es: "Con arroz y plátano maduro", en: "With rice and sweet plantain" },
+            image: desayunoEjecutivoPericos,
+          },
+          {
+            name: { es: "Huevos fritos", en: "Fried eggs" },
+            side: { es: "Con arroz y plátano maduro", en: "With rice and sweet plantain" },
+            image: desayunoEjecutivoFritos,
           },
         ],
       },
