@@ -78,7 +78,6 @@ export const menu: MenuSection[] = [
         name: { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast" },
         description: { es: "Proteína a elegir (carne al horno, costilla ahumada, chuleta, filete de pollo o chorizo) con huevos al gusto, arroz y papa frita o plátano maduro, según la proteína.", en: "Choice of protein (oven-roasted beef, smoked ribs, pork chop, chicken fillet or chorizo) with eggs your way, rice and French fries or sweet plantain, depending on the protein." },
         price: 28000,
-        featured: true,
         proteins: [
           {
             name: { es: "Carne al horno", en: "Oven-roasted beef" },

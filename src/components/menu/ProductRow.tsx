@@ -11,15 +11,13 @@ type Props = {
 
 // Fila estilo carta de restaurante: nombre ........ $precio.
 // Si el producto tiene foto, muestra una miniatura a la izquierda.
-// Los recomendados se resaltan con un recuadro dorado y una estrella.
+// Los recomendados se resaltan con el nombre en negrita y una estrella.
 export function ProductRow({ product, soldOutLabel, recommendedLabel, children }: Props) {
   const soldOut = !product.isAvailable;
   const featured = product.isFeatured;
 
   return (
-    <li
-      className={`py-2 ${featured ? "-mx-3 my-1 overflow-hidden rounded-xl bg-gold/[0.07] px-3 ring-1 ring-gold/30" : ""}`}
-    >
+    <li className="py-2">
       <div className="flex items-center gap-3">
         {product.image && (
           <div className="relative size-14 shrink-0 overflow-hidden rounded-xl ring-1 ring-gold/30">
