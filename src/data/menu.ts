@@ -6,6 +6,12 @@ import type { StaticImageData } from "next/image";
 
 // Fotos de los platos (carpeta src/assets/platos). Importarlas así permite que
 // Next.js las optimice y genere un borrador difuminado que se ve al instante.
+import desayunoEjecutivo from "@/assets/platos/desayuno-ejecutivo.webp";
+import desayunoCarne from "@/assets/platos/desayuno-carne.webp";
+import desayunoCostilla from "@/assets/platos/desayuno-costilla.webp";
+import desayunoChuleta from "@/assets/platos/desayuno-chuleta.webp";
+import desayunoPollo from "@/assets/platos/desayuno-pollo.webp";
+import desayunoChorizo from "@/assets/platos/desayuno-chorizo.webp";
 import almuerzoChorizo from "@/assets/platos/almuerzo-chorizo.webp";
 import almuerzoCarneAlHorno from "@/assets/platos/almuerzo-carne-al-horno.webp";
 import almuerzoChuleta from "@/assets/platos/almuerzo-chuleta.webp";
@@ -58,14 +64,48 @@ export const menu: MenuSection[] = [
       },
       {
         name: { es: "Desayuno ejecutivo", en: "Executive breakfast" },
-        description: { es: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa.", en: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and potato." },
+        description: { es: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa o plátano maduro, a elegir.", en: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and your choice of potato or sweet plantain." },
         price: 17000,
+        proteins: [
+          {
+            name: { es: "Huevos con arroz", en: "Eggs with rice" },
+            side: { es: "Con papa o plátano maduro", en: "With potato or sweet plantain" },
+            image: desayunoEjecutivo,
+          },
+        ],
       },
       {
         name: { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast" },
-        description: { es: "Proteína a elegir (carne al horno, costilla ahumada, chuleta o filete de pollo) con huevos al gusto.", en: "Choice of protein (oven-roasted beef, smoked ribs, pork chop or chicken fillet) with eggs your way." },
+        description: { es: "Proteína a elegir (carne al horno, costilla ahumada, chuleta, filete de pollo o chorizo) con huevos al gusto, arroz y papa frita o plátano maduro, según la proteína.", en: "Choice of protein (oven-roasted beef, smoked ribs, pork chop, chicken fillet or chorizo) with eggs your way, rice and French fries or sweet plantain, depending on the protein." },
         price: 28000,
         featured: true,
+        proteins: [
+          {
+            name: { es: "Carne al horno", en: "Oven-roasted beef" },
+            side: { es: "Con arroz y plátano maduro", en: "With rice and sweet plantain" },
+            image: desayunoCarne,
+          },
+          {
+            name: { es: "Costilla ahumada", en: "Smoked ribs" },
+            side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
+            image: desayunoCostilla,
+          },
+          {
+            name: { es: "Chuleta", en: "Breaded pork chop" },
+            side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
+            image: desayunoChuleta,
+          },
+          {
+            name: { es: "Filete de pollo", en: "Chicken fillet" },
+            side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
+            image: desayunoPollo,
+          },
+          {
+            name: { es: "Chorizo", en: "Chorizo" },
+            side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
+            image: desayunoChorizo,
+          },
+        ],
       },
       {
         name: { es: "Pan", en: "Bread" },

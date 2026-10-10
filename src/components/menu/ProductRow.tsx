@@ -18,7 +18,7 @@ export function ProductRow({ product, soldOutLabel, recommendedLabel, children }
 
   return (
     <li
-      className={`py-2 ${featured ? "-mx-3 my-1 rounded-xl bg-gold/[0.07] px-3 ring-1 ring-gold/30" : ""}`}
+      className={`py-2 ${featured ? "-mx-3 my-1 overflow-hidden rounded-xl bg-gold/[0.07] px-3 ring-1 ring-gold/30" : ""}`}
     >
       <div className="flex items-center gap-3">
         {product.image && (

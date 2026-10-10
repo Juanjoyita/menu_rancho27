@@ -130,7 +130,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                       <PhotoCarousel
                         slug={category.slug}
                         cards={product.proteins}
-                        label={`${product.name}: ${dict.menu.chooseProtein}`}
+                        label={product.proteins.length > 1 ? `${product.name}: ${dict.menu.chooseProtein}` : product.name}
                         title={product.proteins.length > 1 ? dict.menu.chooseProtein : undefined}
                         swipeHint={dict.menu.swipeHint}
                         soldOut={!product.isAvailable}
