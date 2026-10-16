@@ -17,7 +17,7 @@ export type MenuProduct = {
   image: StaticImageData | null;
   isAvailable: boolean;
   isFeatured: boolean; // etiqueta "Recomendado"
-  proteins: MenuCard[]; // opciones con foto (vacío si no aplica)
+  options: MenuCard[]; // opciones con foto (vacío si no aplica)
   choiceTitle: string | null; // título del carrusel (null = el de por defecto)
 };
 
@@ -63,7 +63,7 @@ export async function getPublicMenu(locale: Locale): Promise<MenuCategory[]> {
         image: item.image ?? null,
         isAvailable: item.available ?? true,
         isFeatured: item.featured ?? false,
-        proteins: (item.proteins ?? []).map((card) => toCard(card, locale)),
+        options: (item.options ?? []).map((card) => toCard(card, locale)),
         choiceTitle: item.choiceTitle ? pick(item.choiceTitle, locale) : null,
       })),
     }))

@@ -34,7 +34,8 @@ export function whatsappUrl(number: string, locale: Locale) {
 }
 
 // Número para mostrar: "573225935689" → "322 593 5689".
+// Si no es un celular colombiano (57 + 10 dígitos), se muestra tal cual.
 export function formatPhone(number: string) {
-  const local = number.replace(/^57/, "");
-  return `${local.slice(0, 3)} ${local.slice(3, 6)} ${local.slice(6)}`;
+  const match = /^57(\d{3})(\d{3})(\d{4})$/.exec(number);
+  return match ? `${match[1]} ${match[2]} ${match[3]}` : `+${number}`;
 }

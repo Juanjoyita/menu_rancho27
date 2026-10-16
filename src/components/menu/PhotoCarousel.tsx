@@ -9,6 +9,7 @@ type Props = {
   title?: string; // texto visible encima (ej. "Elige tu proteína")
   swipeHint: string;
   soldOut?: boolean; // el plato está agotado: fotos en gris
+  eager?: boolean; // descargar las fotos al abrir la página (primera sección)
   soldOutLabel: string;
   className?: string;
 };
@@ -24,6 +25,7 @@ export function PhotoCarousel({
   title,
   swipeHint,
   soldOut = false,
+  eager = false,
   soldOutLabel,
   className = "",
 }: Props) {
@@ -51,9 +53,9 @@ export function PhotoCarousel({
         className="-mx-4 mt-2 overflow-x-auto scroll-px-4 px-4 pb-2 [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-gold sm:mx-0 sm:overflow-visible sm:px-0"
       >
         <ul className="flex snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3">
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <li
-              key={card.name}
+              key={`${index}-${card.name}`}
               className="w-[62%] max-w-60 shrink-0 snap-start overflow-hidden rounded-2xl bg-ink shadow-lg shadow-black/40 ring-1 ring-gold/25 sm:w-auto sm:max-w-none"
             >
               <div className="relative aspect-[4/3]">
@@ -63,6 +65,7 @@ export function PhotoCarousel({
                     alt={card.name}
                     sizes="(min-width: 640px) 210px, (min-width: 388px) 240px, 62vw"
                     soldOut={soldOut}
+                    eager={eager}
                   />
                 ) : (
                   // Sin foto todavía: ícono de la categoría sobre un brillo dorado.

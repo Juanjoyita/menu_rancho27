@@ -1,6 +1,6 @@
 // Menú de Rancho 27. Este archivo ES la fuente de datos del menú público.
 // El orden de las categorías y de los platos aquí es el orden en el menú.
-// Exportado desde Neon el 2026-10-03.
+// Guía para cambiar precios, platos y fotos: README.md.
 
 import type { StaticImageData } from "next/image";
 
@@ -41,7 +41,7 @@ export type MenuItem = {
   featured?: boolean; // true = etiqueta "Recomendado"
   available?: boolean; // false = se muestra como "Agotado"
   image?: StaticImageData; // foto del plato (miniatura en su fila)
-  proteins?: MenuCard[]; // opciones con foto (proteínas, huevos…), en carrusel debajo del plato
+  options?: MenuCard[]; // opciones con foto (proteínas, huevos…), en carrusel debajo del plato
   choiceTitle?: LocalizedText; // título del carrusel; por defecto "Elige tu proteína"
 };
 
@@ -70,7 +70,7 @@ export const menu: MenuSection[] = [
         description: { es: "Huevos al gusto (revueltos, pericos o fritos) con arroz y papa frita o plátano maduro, a elegir.", en: "Eggs your way (scrambled, pericos with tomato and onion, or fried) with rice and your choice of French fries or sweet plantain." },
         price: 17000,
         choiceTitle: { es: "Huevos al gusto", en: "Eggs your way" },
-        proteins: [
+        options: [
           {
             name: { es: "Huevos revueltos", en: "Scrambled eggs" },
             side: { es: "Con arroz y papa frita", en: "With rice and French fries" },
@@ -92,7 +92,7 @@ export const menu: MenuSection[] = [
         name: { es: "Desayuno Rancho 27", en: "Rancho 27 breakfast" },
         description: { es: "Proteína a elegir (carne al horno, costilla ahumada, chuleta, filete de pollo o chorizo) con huevos al gusto, arroz y papa frita o plátano maduro, según la proteína.", en: "Choice of protein (oven-roasted beef, smoked ribs, pork chop, chicken fillet or chorizo) with eggs your way, rice and French fries or sweet plantain, depending on the protein." },
         price: 28000,
-        proteins: [
+        options: [
           {
             name: { es: "Carne al horno", en: "Oven-roasted beef" },
             side: { es: "Con arroz y plátano maduro", en: "With rice and sweet plantain" },
@@ -138,7 +138,7 @@ export const menu: MenuSection[] = [
         name: { es: "Almuerzo ejecutivo", en: "Executive lunch" },
         description: { es: "Proteína: chorizo. Incluye sopa, principio, arroz, papa al vapor, ensalada y limonada.", en: "Protein: chorizo. Includes soup, beans or legumes, rice, steamed potato, salad and lemonade." },
         price: 28000,
-        proteins: [
+        options: [
           {
             name: { es: "Chorizo", en: "Chorizo" },
             side: { es: "Con papa al vapor", en: "With steamed potato" },
@@ -150,7 +150,7 @@ export const menu: MenuSection[] = [
         name: { es: "Almuerzo al horno", en: "Oven-baked lunch" },
         description: { es: "Proteína a elegir (carne al horno, chuleta, costilla ahumada, filete de pollo o gallina). Incluye sopa, principio, arroz, papa (al vapor o frita, según la proteína), ensalada y limonada.", en: "Choice of protein (oven-roasted beef, pork chop, smoked ribs, chicken fillet or hen). Includes soup, beans or legumes, rice, potato (steamed or fried, depending on the protein), salad and lemonade." },
         price: 32000,
-        proteins: [
+        options: [
           {
             name: { es: "Carne al horno", en: "Oven-roasted beef" },
             side: { es: "Con papa al vapor", en: "With steamed potato" },

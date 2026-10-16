@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DishImage } from "@/components/menu/DishImage";
-import { Emblem } from "@/components/menu/Emblem";
 import { ProductRow } from "@/components/menu/ProductRow";
 import { PhotoCarousel } from "@/components/menu/PhotoCarousel";
 import { SectionHeader } from "@/components/menu/SectionHeader";
@@ -27,7 +27,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
 
   return (
     <main className="mx-auto max-w-2xl overflow-x-clip pb-16">
-      {/* Encabezado: emblema, nombre del restaurante y lema. */}
+      {/* Encabezado: logo (incluye el nombre) y lema. */}
       <header className="relative px-4 pt-6 pb-10 text-center">
         <div className="flex justify-end">
           <Link
@@ -40,17 +40,24 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
           </Link>
         </div>
 
-        <Emblem className="mx-auto mt-2 w-32 text-cream" />
-        <h1 className="mt-2 font-logo text-5xl leading-none text-cream drop-shadow-[0_2px_12px_rgba(232,163,61,0.25)]">
-          RANCHO 27
+        <h1 className="relative isolate mx-auto mt-1 w-fit">
+          {/* Resplandor dorado detrás del logo, como en la página de bienvenida. */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-[-10%] -z-10 rounded-full bg-[radial-gradient(circle,rgba(232,163,61,0.28),transparent_70%)]"
+          />
+          <Image
+            src="/images/logo.webp"
+            alt="Rancho 27"
+            width={900}
+            height={974}
+            preload
+            sizes="(min-width: 640px) 190px, 170px"
+            className="w-[170px] sm:w-[190px]"
+          />
           <span className="sr-only"> · {dict.menu.title}</span>
         </h1>
-        <p className="mt-3 flex items-center justify-center gap-3 font-heading text-xs uppercase tracking-[0.3em] text-cream/80">
-          <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
-          {dict.brand.subtitle}
-          <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
-        </p>
-        <p className="mt-6 -rotate-3 font-script text-3xl text-gold">{dict.brand.slogan}</p>
+        <p className="mt-4 -rotate-3 font-script text-3xl text-gold">{dict.brand.slogan}</p>
       </header>
 
       {categories.length === 0 ? (
@@ -77,7 +84,9 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
             </ul>
           </nav>
 
-          {categories.map((category) => {
+          {categories.map((category, categoryIndex) => {
+            // Solo la primera sección (la que se ve al abrir) descarga sus fotos de inmediato.
+            const eager = categoryIndex === 0;
             const titleId = `${category.slug}-title`;
 
             return (
@@ -103,6 +112,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                   label={category.name}
                   swipeHint={dict.menu.swipeHint}
                   soldOutLabel={dict.menu.soldOut}
+                  eager={eager}
                   className="mt-5"
                 />
 
@@ -112,6 +122,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                       src={category.image}
                       alt={category.name}
                       sizes="(min-width: 672px) 640px, 100vw"
+                      eager={eager}
                     />
                     {/* Viñeta para integrar la foto con el fondo oscuro. */}
                     <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.6)]" />
@@ -129,16 +140,17 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                       {/* Fotos de las proteínas, justo debajo de su plato. */}
                       <PhotoCarousel
                         slug={category.slug}
-                        cards={product.proteins}
+                        cards={product.options}
                         label={
-                          product.proteins.length > 1
+                          product.options.length > 1
                             ? `${product.name}: ${product.choiceTitle ?? dict.menu.chooseProtein}`
                             : product.name
                         }
-                        title={product.proteins.length > 1 ? (product.choiceTitle ?? dict.menu.chooseProtein) : undefined}
+                        title={product.options.length > 1 ? (product.choiceTitle ?? dict.menu.chooseProtein) : undefined}
                         swipeHint={dict.menu.swipeHint}
                         soldOut={!product.isAvailable}
                         soldOutLabel={dict.menu.soldOut}
+                        eager={eager}
                         className="mt-3 mb-2"
                       />
                     </ProductRow>
@@ -158,10 +170,14 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
               {dict.brand.closing} <span aria-hidden="true">♥</span>
             </p>
             <p className="mt-3 font-script text-xl text-cream/70">{dict.brand.footerSlogan}</p>
-            <Emblem className="mx-auto mt-8 w-16 text-gold/70" />
-            <p className="mt-1 font-heading text-sm uppercase tracking-[0.3em] text-cream/70">
-              Rancho 27
-            </p>
+            <Image
+              src="/images/logo.webp"
+              alt="Rancho 27"
+              width={900}
+              height={974}
+              sizes="80px"
+              className="mx-auto mt-8 w-20 opacity-90"
+            />
             <p className="mt-6 text-xs text-cream/40">{dict.menu.pricesNote}</p>
           </footer>
         </>

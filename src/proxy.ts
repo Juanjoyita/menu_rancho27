@@ -9,10 +9,13 @@ function preferredLocale(request: NextRequest): Locale {
   const ranked = header
     .split(",")
     .map((part) => {
-      const [tag, q] = part.trim().split(";q=");
+      // Acepta espacios alrededor de ";" y "=": "en; q=0.9" o "en;q=0.9".
+      const [tag, ...params] = part.split(";").map((piece) => piece.trim());
+      const q = params.find((param) => param.startsWith("q="))?.slice(2).trim();
       const quality = q === undefined ? 1 : Number(q);
       return { lang: tag.toLowerCase().split("-")[0], quality: Number.isNaN(quality) ? 0 : quality };
     })
+    .filter((entry) => entry.quality > 0) // q=0 significa "no quiero este idioma"
     .sort((a, b) => b.quality - a.quality);
 
   const match = ranked.find((entry) => isLocale(entry.lang));
@@ -23,7 +26,12 @@ function preferredLocale(request: NextRequest): Locale {
 export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = `/${preferredLocale(request)}`;
-  return NextResponse.redirect(url);
+  const response = NextResponse.redirect(url);
+  // La respuesta depende del idioma del navegador: ningún caché debe guardarla
+  // para servírsela a otros visitantes.
+  response.headers.set("Vary", "Accept-Language");
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
 }
 
 export const config = {

@@ -1,32 +1,7 @@
 import type { Metadata } from "next";
-import { Alfa_Slab_One, Caveat, Geist, Oswald } from "next/font/google";
 import { locales } from "@/i18n/config";
+import { fontVariables } from "../fonts";
 import "../globals.css";
-
-// Texto general (listas de productos).
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-// Logo "RANCHO 27": letra gruesa con serifas rectas.
-const alfaSlab = Alfa_Slab_One({
-  variable: "--font-alfa-slab",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-// Títulos de categoría: mayúsculas altas y angostas.
-const oswald = Oswald({
-  variable: "--font-oswald",
-  subsets: ["latin"],
-});
-
-// Frases escritas a mano ("Buenos sabores, siempre.").
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: { default: "Rancho 27", template: "%s | Rancho 27" },
@@ -43,12 +18,10 @@ export function generateStaticParams() {
 // indique el idioma real de la página.
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
-  const fonts = [geistSans, alfaSlab, oswald, caveat].map((font) => font.variable).join(" ");
-
   return (
     // data-scroll-behavior: Next quita el desplazamiento suave al cambiar de página
     // (ej. landing → menú) y lo mantiene al tocar una categoría dentro del menú.
-    <html lang={lang} data-scroll-behavior="smooth" className={`${fonts} h-full antialiased`}>
+    <html lang={lang} data-scroll-behavior="smooth" className={`${fontVariables} h-full antialiased`}>
       <body className="min-h-full text-cream">{children}</body>
     </html>
   );
