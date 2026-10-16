@@ -137,7 +137,7 @@ export const menu: MenuSection[] = [
       {
         name: { es: "Almuerzo ejecutivo", en: "Executive lunch" },
         description: { es: "Proteína: chorizo. Incluye sopa, principio, arroz, papa al vapor, ensalada y limonada.", en: "Protein: chorizo. Includes soup, beans or legumes, rice, steamed potato, salad and lemonade." },
-        price: 27000,
+        price: 28000,
         proteins: [
           {
             name: { es: "Chorizo", en: "Chorizo" },
@@ -149,7 +149,7 @@ export const menu: MenuSection[] = [
       {
         name: { es: "Almuerzo al horno", en: "Oven-baked lunch" },
         description: { es: "Proteína a elegir (carne al horno, chuleta, costilla ahumada, filete de pollo o gallina). Incluye sopa, principio, arroz, papa (al vapor o frita, según la proteína), ensalada y limonada.", en: "Choice of protein (oven-roasted beef, pork chop, smoked ribs, chicken fillet or hen). Includes soup, beans or legumes, rice, potato (steamed or fried, depending on the protein), salad and lemonade." },
-        price: 30000,
+        price: 32000,
         proteins: [
           {
             name: { es: "Carne al horno", en: "Oven-roasted beef" },
@@ -205,7 +205,7 @@ export const menu: MenuSection[] = [
       },
       {
         name: { es: "Arepa de choclo con queso campesino", en: "Sweet corn arepa with farmer's cheese" },
-        price: 6500,
+        price: 7000,
         featured: true,
       },
       {
@@ -251,7 +251,7 @@ export const menu: MenuSection[] = [
       },
       {
         name: { es: "Chorizo con arepa blanca", en: "Chorizo with white arepa" },
-        price: 6500,
+        price: 7000,
       },
       {
         name: { es: "Chorizo con papa al vapor", en: "Chorizo with steamed potato" },
