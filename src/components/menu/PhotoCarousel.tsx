@@ -38,8 +38,8 @@ export function PhotoCarousel({
         <div className="flex items-baseline justify-between gap-3">
           {title ? <p className="-rotate-2 font-script text-xl text-gold">{title}</p> : <span />}
           {canSwipe && (
-            <p aria-hidden="true" className="font-heading text-[0.7rem] uppercase tracking-wider text-cream/50 sm:hidden">
-              {swipeHint} →
+            <p aria-hidden="true" className="text-xs text-cream/50 sm:hidden">
+              {swipeHint}
             </p>
           )}
         </div>
@@ -75,7 +75,7 @@ export function PhotoCarousel({
                 )}
                 {/* Degradado para que el nombre se lea sobre cualquier foto. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
-                <p className="absolute inset-x-3 bottom-2 font-heading text-lg uppercase leading-tight tracking-wide text-cream">
+                <p className="absolute inset-x-3 bottom-2 font-heading text-xl leading-tight text-cream">
                   {card.name}
                 </p>
               </div>
@@ -84,7 +84,7 @@ export function PhotoCarousel({
                 <div className="flex flex-wrap items-center gap-2 px-3 py-2">
                   {card.side && <p className="text-[0.78rem] text-cream/60 italic">{card.side}</p>}
                   {soldOut && (
-                    <span className="rounded-full border border-gold/40 px-2 py-0.5 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
+                    <span className="rounded-full border border-gold/40 px-2 py-0.5 text-xs text-gold">
                       {soldOutLabel}
                     </span>
                   )}

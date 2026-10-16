@@ -34,7 +34,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
             href={`/${otherLang}/menu`}
             hrefLang={otherLang}
             lang={otherLang}
-            className="rounded-full border border-gold/40 px-3 py-1 font-heading text-xs uppercase tracking-wider text-cream/80 hover:border-gold hover:text-gold"
+            className="rounded-full border border-gold/40 px-3 py-1 font-heading text-sm text-cream/80 hover:border-gold hover:text-gold"
           >
             {dict.language.switchTo}
           </Link>
@@ -75,7 +75,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                 <li key={category.id} className="shrink-0">
                   <a
                     href={`#${category.slug}`}
-                    className="block rounded-full border border-gold/40 px-4 py-1.5 font-heading text-xs uppercase tracking-wider text-cream/90 transition hover:bg-gold hover:text-ink"
+                    className="block rounded-full border border-gold/40 px-4 py-1.5 font-heading text-sm tracking-wide text-cream/90 transition hover:bg-gold hover:text-ink"
                   >
                     {category.name}
                   </a>

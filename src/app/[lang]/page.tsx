@@ -78,15 +78,14 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         {/* Acción principal */}
         <Link
           href={`/${lang}/menu`}
-          className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 font-heading text-lg uppercase tracking-[0.2em] text-ink shadow-[0_0_30px_rgba(232,163,61,0.45)] transition hover:bg-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light"
+          className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 font-heading text-2xl tracking-wide text-ink shadow-[0_0_30px_rgba(232,163,61,0.45)] transition hover:bg-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light"
         >
           {dict.landing.seeMenu}
-          <span aria-hidden="true">→</span>
         </Link>
 
         {/* Reserva por WhatsApp: al tocar se despliegan los números (<details>, sin JavaScript). */}
         <details className="group mt-4 w-full overflow-hidden rounded-[1.75rem] border border-[#25d366]/60 bg-ink/70 transition open:border-[#25d366]">
-          <summary className="flex cursor-pointer list-none items-center justify-center gap-2 px-6 py-3 font-heading text-sm uppercase tracking-[0.15em] text-cream transition hover:bg-[#25d366]/15 [&::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-center gap-2 px-6 py-3 font-heading text-lg tracking-wide text-cream transition hover:bg-[#25d366]/15 [&::-webkit-details-marker]:hidden">
             <WhatsAppIcon className="size-5 text-[#25d366]" />
             {dict.landing.reserve}
             <svg
@@ -110,15 +109,10 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${dict.landing.writeTo} ${formatPhone(number)}`}
-                  className="flex items-center justify-between px-6 py-3 text-cream transition hover:bg-[#25d366]/15"
+                  className="flex items-center justify-center gap-2 px-6 py-3 font-heading text-lg tracking-wider text-cream transition hover:bg-[#25d366]/15"
                 >
-                  <span className="flex items-center gap-2 font-heading tracking-[0.12em]">
-                    <WhatsAppIcon className="size-4 text-[#25d366]" />
-                    {formatPhone(number)}
-                  </span>
-                  <span aria-hidden="true" className="text-[#25d366]">
-                    →
-                  </span>
+                  <WhatsAppIcon className="size-4 text-[#25d366]" />
+                  {formatPhone(number)}
                 </a>
               </li>
             ))}

@@ -49,7 +49,7 @@ export function ProductRow({ product, soldOutLabel, recommendedLabel, children }
           {(featured || soldOut) && (
             <div className="mt-1 flex flex-wrap gap-2">
               {featured && (
-                <span className="inline-flex items-center gap-1 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
+                <span className="inline-flex items-center gap-1 text-xs text-gold">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-3.5">
                     <path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5-4.9-4.5 6.6-.8z" />
                   </svg>
@@ -57,7 +57,7 @@ export function ProductRow({ product, soldOutLabel, recommendedLabel, children }
                 </span>
               )}
               {soldOut && (
-                <span className="inline-block rounded-full border border-gold/40 px-2 py-0.5 font-heading text-[0.7rem] uppercase tracking-wider text-gold">
+                <span className="inline-block rounded-full border border-gold/40 px-2 py-0.5 text-xs text-gold">
                   {soldOutLabel}
                 </span>
               )}
