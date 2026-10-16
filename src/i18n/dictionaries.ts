@@ -4,7 +4,7 @@ import type { Locale } from "./config";
 // están en src/data/menu.ts y los datos del negocio en src/config/site.ts.
 const es = {
   brand: {
-    slogan: "Buenos sabores, siempre.",
+    slogan: "Tradición y sabor en su mesa.",
     closing: "Gracias por preferirnos",
     footerSlogan: "El mejor sabor de nuestra tierra",
   },
@@ -35,7 +35,7 @@ export type Dictionary = typeof es;
 
 const en: Dictionary = {
   brand: {
-    slogan: "Good flavors, always.",
+    slogan: "Tradition and flavor at your table.",
     closing: "Thank you for choosing us",
     footerSlogan: "The best flavors of our land",
   },

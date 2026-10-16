@@ -21,7 +21,7 @@ const oswald = Oswald({
   subsets: ["latin"],
 });
 
-// Frases escritas a mano ("Buenos sabores, siempre.").
+// Frases escritas a mano ("Tradición y sabor en su mesa.").
 const caveat = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],
