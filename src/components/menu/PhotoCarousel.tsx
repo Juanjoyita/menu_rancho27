@@ -6,6 +6,7 @@ type Props = {
   slug: string; // categoría, para el ícono de las tarjetas sin foto
   cards: MenuCard[];
   label: string; // nombre de la fila para lectores de pantalla
+  altPrefix: string; // contexto del texto alternativo: "Almuerzo al horno: Chuleta"
   title?: string; // texto visible encima (ej. "Elige tu proteína")
   swipeHint: string;
   soldOut?: boolean; // el plato está agotado: fotos en gris
@@ -22,6 +23,7 @@ export function PhotoCarousel({
   slug,
   cards,
   label,
+  altPrefix,
   title,
   swipeHint,
   soldOut = false,
@@ -62,7 +64,7 @@ export function PhotoCarousel({
                 {card.image ? (
                   <DishImage
                     src={card.image}
-                    alt={card.name}
+                    alt={`${altPrefix}: ${card.name}`}
                     sizes="(min-width: 640px) 210px, (min-width: 388px) 240px, 62vw"
                     soldOut={soldOut}
                     eager={eager}

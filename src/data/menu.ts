@@ -190,11 +190,11 @@ export const menu: MenuSection[] = [
     name: { es: "Especialidad de la casa", en: "House specialty" },
     gallery: [
       {
-        name: { es: "Arepa con queso campesino", en: "Arepa with farmer's cheese" },
+        name: { es: "Queso campesino", en: "Farmer's cheese" },
         image: arepaQuesoCampesino,
       },
       {
-        name: { es: "Arepa con queso doble crema", en: "Arepa with double-cream cheese" },
+        name: { es: "Doble crema", en: "Double-cream cheese" },
         image: arepaQuesoDobleCrema,
       },
     ],

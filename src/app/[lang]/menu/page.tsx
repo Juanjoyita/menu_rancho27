@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CategoryNav } from "@/components/menu/CategoryNav";
 import { DishImage } from "@/components/menu/DishImage";
 import { ProductRow } from "@/components/menu/ProductRow";
 import { PhotoCarousel } from "@/components/menu/PhotoCarousel";
@@ -64,25 +65,11 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
         <p className="px-4 text-center text-cream/60">{dict.menu.empty}</p>
       ) : (
         <>
-          {/* Barra de categorías: queda fija arriba al hacer scroll.
-              Fondo opaco sin desenfoque (backdrop-blur hacía lento el scroll en celulares). */}
-          <nav
-            aria-label={dict.menu.categories}
-            className="sticky top-0 z-20 border-y border-gold/20 bg-ink"
-          >
-            <ul className="flex gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none]">
-              {categories.map((category) => (
-                <li key={category.id} className="shrink-0">
-                  <a
-                    href={`#${category.slug}`}
-                    className="block rounded-full border border-gold/40 px-4 py-1.5 font-heading text-sm tracking-wide text-cream/90 transition hover:bg-gold hover:text-ink"
-                  >
-                    {category.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* Barra de categorías fija arriba; resalta la sección que se está viendo. */}
+          <CategoryNav
+            label={dict.menu.categories}
+            categories={categories.map(({ slug, name }) => ({ slug, name }))}
+          />
 
           {categories.map((category, categoryIndex) => {
             // Solo la primera sección (la que se ve al abrir) descarga sus fotos de inmediato.
@@ -110,6 +97,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                   slug={category.slug}
                   cards={category.gallery}
                   label={category.name}
+                  altPrefix={category.name}
                   swipeHint={dict.menu.swipeHint}
                   soldOutLabel={dict.menu.soldOut}
                   eager={eager}
@@ -141,6 +129,7 @@ export default async function MenuPage({ params }: PageProps<"/[lang]/menu">) {
                       <PhotoCarousel
                         slug={category.slug}
                         cards={product.options}
+                        altPrefix={product.name}
                         label={
                           product.options.length > 1
                             ? `${product.name}: ${product.choiceTitle ?? dict.menu.chooseProtein}`
